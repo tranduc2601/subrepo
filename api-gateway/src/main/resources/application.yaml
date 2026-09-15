@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: genre-service
+              uri: lb://genre-service
+              predicates:
+                - Path=/api/genres/**, /api/genre-service/**
+            - id: movie-service
+              uri: lb://movie-service
+              predicates:
+                - Path=/api/movies/**, /api/movie-service/**
+      routes:
+        - id: genre-service
+          uri: lb://genre-service
+          predicates:
+            - Path=/api/genres/**, /api/genre-service/**
+        - id: movie-service
+          uri: lb://movie-service
+          predicates:
+            - Path=/api/movies/**, /api/movie-service/**
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
