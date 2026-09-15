@@ -29,7 +29,7 @@ public class MovieService {
         } catch (FeignException.NotFound ex) {
             throw new GenreNotFoundException("Genre not found with id: " + request.getGenreId());
         } catch (Exception ex) {
-            throw new GenreNotFoundException("Genre validation failed for id: " + request.getGenreId());
+            throw new GenreNotFoundException("Genre not found with id: " + request.getGenreId());
         }
 
         if (genreDto == null) {
